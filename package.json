@@ -6,15 +6,23 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
+    "rail": "railway run yarn dev",
+    "cmd-deploy":"node src/deploy-command.ts",
     "build": "tsc",
     "start": "node ."
   },
   "dependencies": {
-    "discord.js": "^13.1.0"
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
+    "@prisma/client": "^3.11.1",
+    "discord-api-types": "^0.30.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@types/node": "^16.6.2",
     "nodemon": "^2.0.12",
+    "prisma": "^3.11.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },

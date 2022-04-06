@@ -1,18 +1,24 @@
-import { Client, Intents, Message } from 'discord.js';
+import dotenv from "dotenv";
+dotenv.config();
+
+import { Client, Intents, Interaction, Message } from "discord.js";
+
+import { onInteraction } from "./events/onInteraction";
+import { onReady } from "./events/onReady";
+
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
-client.once('ready', () => {
+client.once("ready", () => {
   console.log(`Logged in as ${client.user?.tag}!`);
 });
 
-client.on('message', (msg: Message) => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong 🏓');
-  } else if (msg.content === 'hello') {
-    msg.reply('Choo choo! 🚅');
-  }
-});
+client.on("ready",async () => await onReady(client))
 
-client.login();
+client.on(
+  "interactionCreate",
+  async (interaction: Interaction) => await onInteraction(interaction)
+);
+
+client.login(process.env.DISCORD_TOKEN);
